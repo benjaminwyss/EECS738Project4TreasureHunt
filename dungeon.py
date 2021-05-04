@@ -25,11 +25,11 @@ class dungeon:
 
   def reset(self):
     self.score = self.startingScore
-
+    self.mapFile.seek(0)
     self.map = []
 
     row = 0
-    for line in mapFile:
+    for line in self.mapFile:
       self.map.append([])
       col = 0
       line = line.rstrip('\n')
@@ -51,6 +51,8 @@ class dungeon:
       possibleMoves.append('down')
     if self.map[self.playerRow][self.playerCol - 1] != 'W':
       possibleMoves.append('left')
+
+    return possibleMoves
 
   def getPotentialReward(self, row, col):
     char = self.map[row][col]

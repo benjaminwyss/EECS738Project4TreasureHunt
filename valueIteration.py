@@ -16,10 +16,6 @@ class valueIteration:
       for char in self.game.map[row]:
         if char == 'W':
           self.valueMap[row].append(float('-inf'))
-        #elif char == 'G':
-        #  self.valueMap[row].append(float(self.game.goldVal))
-        #elif char == 'T':
-        #  self.valueMap[row].append(float(self.game.trapVal))
         else:
           self.valueMap[row].append(float(0))
 
