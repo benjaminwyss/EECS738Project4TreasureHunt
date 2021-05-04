@@ -1,11 +1,31 @@
 class dungeon:
 
   def __init__(self, mapFile, startingScore=100, trapVal=-100, goldVal=100, moveVal=-5):
+    self.mapFile = mapFile
     self.score = startingScore
+    self.startingScore = startingScore
     self.trapVal = trapVal
     self.goldVal = goldVal
     self.moveVal = moveVal
     
+    self.map = []
+
+    row = 0
+    for line in mapFile:
+      self.map.append([])
+      col = 0
+      line = line.rstrip('\n')
+      for char in line:
+        self.map[row].append(char)
+        if char == 'S':
+          self.playerRow = row
+          self.playerCol = col
+        col += 1
+      row += 1
+
+  def reset(self):
+    self.score = self.startingScore
+
     self.map = []
 
     row = 0
@@ -31,6 +51,18 @@ class dungeon:
       possibleMoves.append('down')
     if self.map[self.playerRow][self.playerCol - 1] != 'W':
       possibleMoves.append('left')
+
+  def getPotentialReward(self, row, col):
+    char = self.map[row][col]
+
+    if char == 'W':
+      return float('-inf')
+    elif char == 'G':
+      return float(self.goldVal)
+    elif char == 'T':
+      return float(self.trapVal)
+    else:
+      return float(self.moveVal)
 
   def up(self):
     nextChar = self.map[self.playerRow - 1][self.playerCol]
