@@ -40,4 +40,12 @@ Monte Carlo is implemented in [monteCarlo.py](monteCarlo.py). Training a Monte C
 
 ## Results
 
+To run the program, execute [main.py](main.py) using python3. Upon execution, the program loads each map into a game, and then trains and executes each policy against each map. The policies' value matrices and moves are all printed out for visibility and analysis. The program lastly outputs the final scores achieved by each policy on each map.
+
+Overall, the value iteration policy performed very well in each map, obtaining the best possible score in 4/5 maps and the second best possible score in the last map. The value iteration policy always moves towards the closest score-boosting series of moves or towards the exit if no score-boosting moves remain. For most maps, this results in an optimal policy. In [the fifth map](maps/map4.txt), however, optimal score is achieved by picking up the gold that is below the starting location before picking up the gold that is above the starting location. This ordering of moves saves 4 moves in total, meaning that the value iteration policy's score is 20 points below the maximum possible score. This occurs because the value iteration policy is a little shortsighted and does not account for how maps change when gold is picked up and traps are triggered until *after* the map has already changed.
+
+The monte carlo policy performed worse, obtaining the best possible score in 2/5 maps, and significantly suboptimal scores in 3/5 maps. The monte carlo policy tends to try and move towards the exit location as fast as possible, and mostly ignores gold and traps along the way. This seems to be because random traversals are very inefficient in moving towards beneficial moves, instead they tend to linger in areas and execute many useless moves. These useless moves negatively impact the policy's value matrix because they decrease the impact of gold and traps in the value matrix. This results in a very greedy exit-oriented policy which only performs optimally in maps where moving to the exit as fast as possible is the optimal strategy.
+
 ## Conclusion
+
+This project was very helpful in deepening my understanding of reinforcement learning strategies, implementations, and tradeoffs. While no policy implemented was perfect, analyzing each policy to determine their overall strategies, pros, and cons was a great learning experience. Despite this, the implemented value iteration policy still performed great in most cases, and I am satisfied with the results I achieved.
